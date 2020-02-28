@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 __author__ = ('Imam Omar Mochtar')
 __email__ = ('iomarmochtar@gmail.com',)
@@ -150,7 +150,7 @@ class M3Sync(object):
         # find group
         ret_attr = [
             self.sync['group_name_attr'], self.sync['subscriber_attr'], 
-            self.sync['owner_attr'], self.sync['moderator_attr']
+            self.sync['owner_attr'], self.sync['moderator_attr'], "mailinglistId"
         ]
         search_result = self.ldap.search(
             self.sync['search_base'],
@@ -165,10 +165,8 @@ class M3Sync(object):
         ldap_data = {}
         for group in self.ldap.entries:
             # change all space to dot for group name
-            list_name = re.sub(
-                r'\s+', '.', getattr(group, self.sync['group_name_attr']).value)
+            list_name = str(group["mailingListId"])
 
-            #
             ldap_data[self.get_list(list_name)] = dict(
                 zip(self.__attrs, [[] for x in range(len(self.__attrs))])
             )
@@ -186,8 +184,9 @@ class M3Sync(object):
                             attributes=[self.sync['mail_attr']],
                             search_scope=BASE
                         )
-                        email = getattr(
-                            self.ldap.entries[0], self.sync['mail_attr']).value
+                        if len(self.ldap.entries) != 0:
+                            email = getattr(
+                                self.ldap.entries[0], self.sync['mail_attr']).value
 
                     if not email:
                         self.logger.warning('LDAP data for {}, is not an email or it doesn\'t has email attribute'.format(dn))
@@ -221,10 +220,14 @@ class M3Sync(object):
                 # disable welcome message
                 mlist.settings['send_welcome_message'] = False
                 mlist.settings.save()
-            except HTTPError:
+            except HTTPError as e:
+                print(e)
                 self.logger.warn(
                     "List with name {0} already exists".format(list_name))
                 mlist = self.get_list_byname(domain, list_name)
+                if mlist == None:
+                    self.logger.warn("Failed to add list {0}".format(list_name))
+                    continue
 
             mlist_name = mlist.fqdn_listname
             # subscriber

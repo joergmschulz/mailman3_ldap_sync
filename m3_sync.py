@@ -146,6 +146,11 @@ class M3Sync(object):
                 self.logger.info(
                     "Result of hoook {0} is {1}".format(name, result))
 
+    def set_settings(self, mlist):
+        mlist.settings['send_welcome_message'] = False
+        mlist.settings['max_message_size'] = 0
+        mlist.settings.save()
+     
     def main(self):
         # find group
         ret_attr = [
@@ -217,9 +222,8 @@ class M3Sync(object):
                 list_name, self.sync['default_list_domain']))
             try:
                 mlist = domain.create_list(list_name)
-                # disable welcome message
-                mlist.settings['send_welcome_message'] = False
-                mlist.settings.save()
+                # set settings
+                self.set_settings(mlist)
             except HTTPError as e:
                 print(e)
                 self.logger.warn(
@@ -279,6 +283,8 @@ class M3Sync(object):
                     mlist.delete()
 
                 continue
+            
+            self.set_settings(mlist)
 
             for member in mlist.members:
                 if member.email not in ldap_data[list_name]['subscriber']:

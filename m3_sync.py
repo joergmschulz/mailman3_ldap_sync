@@ -295,7 +295,7 @@ class M3Sync(object):
             self.set_settings(mlist)
 
             for member in mlist.members:
-                if member.email not in ldap_data[list_name]['subscriber']:
+                if member.email not in ldap_data[list_name]['subscriber'] and member.email not in ldap_data[list_name]['moderator']:
                     self.logger.info("Unsubscribe {0} from list {1}".format(
                         member.email, list_name))
                     member.unsubscribe()

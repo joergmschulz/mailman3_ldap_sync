@@ -254,6 +254,14 @@ class M3Sync(object):
                 except HTTPError:
                     self.logger.warn(
                         "moderator {0} already exist in {1}".format(moderator, mlist_name))
+                try:
+                    self.logger.info("Add moderator {0} subscriber to list {1}".format(
+                        moderator, mlist_name))
+                    mlist.subscribe(moderator, pre_verified=True,
+                                    pre_confirmed=True, pre_approved=True)
+                except HTTPError:
+                    self.logger.warn("moderator {0} already exist in {1}".format(
+                        moderator, mlist_name))
 
             # owner
             for owner in datas['owner']:

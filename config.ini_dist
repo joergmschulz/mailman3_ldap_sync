@@ -39,6 +39,8 @@ delete_rest_list = true
 exclude_list_re =
 ; list prefix that will be appended in front, eg: kelompok@iomarmochtar.com to list-kelompok@iomarmochtar.com
 list_prefix =
+; accept_nonmembers
+; accept_nonmembers = ^.*@google.com$
 
 ; hooks is some python code that will be executed after sync process are done, all hooks must be put in hooks folder
 ; script will run method main in hook file, see the example 

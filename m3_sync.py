@@ -234,6 +234,11 @@ class M3Sync(object):
                     continue
 
             mlist_name = mlist.fqdn_listname
+
+            # add domain as accepted non-member
+            if self.sync['accept_nonmembers'] != None:
+                mlist.settings['accept_these_nonmembers'] = [self.sync['accept_nonmembers']]
+
             # subscriber
             for subscriber in datas['subscriber']:
                 try:

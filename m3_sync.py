@@ -240,6 +240,8 @@ class M3Sync(object):
                 mlist.settings['accept_these_nonmembers'] = [self.sync['accept_nonmembers']]
             else:
                 mlist.settings['accept_these_nonmembers'] = []
+		
+		mlist.settings.save()
 
             # subscriber
             for subscriber in datas['subscriber']:

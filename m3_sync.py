@@ -86,7 +86,7 @@ class M3Sync(object):
             reset=True,
             log_colors={
                 'DEBUG': 'cyan',
-                'INFO':	 'green',
+                'INFO':	'green',
                 'WARNING': 'yellow',
                 'ERROR': 'red',
                 'CRITICAL': 'blue',
@@ -150,8 +150,8 @@ class M3Sync(object):
         mlist.settings['send_welcome_message'] = False
         mlist.settings['max_message_size'] = 0
         mlist.settings['advertised'] = False
-        mlist.settings['subscribe_policy'] = 3
-        mlist.settings['archive_policy'] = 0
+        mlist.settings['subscription_policy'] = "confirm_then_moderate"
+        mlist.settings['archive_policy'] = "never"
         mlist.settings.save()
      
     def main(self):
@@ -225,7 +225,6 @@ class M3Sync(object):
                 list_name, self.sync['default_list_domain']))
             try:
                 mlist = domain.create_list(list_name)
-                # set settings
                 self.set_settings(mlist)
             except HTTPError as e:
                 print(e)

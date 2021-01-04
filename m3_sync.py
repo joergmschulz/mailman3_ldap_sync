@@ -15,8 +15,6 @@ from mailmanclient import Client as Mailman3Client
 from colorlog import ColoredFormatter
 from six.moves.urllib_error import HTTPError
 from ldap3 import Server, Connection, ALL, ALL_ATTRIBUTES, BASE
-from mailman.interfaces.archiver import ArchivePolicy
-from mailman.interfaces.mailinglist import SubscriptionPolicy
 try:
     from ConfigParser import ConfigParser
 except ImportError:
@@ -152,8 +150,8 @@ class M3Sync(object):
         mlist.settings['send_welcome_message'] = False
         mlist.settings['max_message_size'] = 0
         mlist.settings['advertised'] = False
-        mlist.settings['subscribe_policy'] = SubscriptionPolicy.confirm_then_moderate
-        mlist.settings['archive_policy'] = ArchivePolicy.never
+        mlist.settings['subscribe_policy'] = 3
+        mlist.settings['archive_policy'] = 0
         mlist.settings.save()
      
     def main(self):

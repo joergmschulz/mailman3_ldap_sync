@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-__author__ = ('Imam Omar Mochtar')
+__author__ = ('Imam Omar Mochtar, amended by Joerg M. Schulz')
 __email__ = ('iomarmochtar@gmail.com',)
 __version__ = "1.0"
 __license__ = "GPL"
@@ -330,8 +330,10 @@ class M3Sync(object):
 if __name__ == "__main__":
 
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    MAIN_CONF = os.path.join(BASE_DIR, 'config.ini')
-
+    options = sys.argv
+    print "Sys Args: ", options[1]
+    # MAIN_CONF = os.path.join(BASE_DIR, 'config.ini')
+    MAIN_CONF = options[1]
     if not os.path.isfile(MAIN_CONF):
         logExit("main configuration not found")
 

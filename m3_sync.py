@@ -256,7 +256,7 @@ class M3Sync(object):
             mlist_name = mlist.fqdn_listname
 
             # add domain as accepted non-member
-            if self.sync['accept_nonmembers'] != None:
+            if '@' in self.sync['accept_nonmembers'] :
                 mlist.settings['accept_these_nonmembers'] = [self.sync['accept_nonmembers']]
             else:
                 mlist.settings['accept_these_nonmembers'] = []

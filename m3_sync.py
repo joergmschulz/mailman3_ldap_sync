@@ -67,7 +67,7 @@ class M3Sync(object):
         # set conf api
         conf = dict(self.config.items('mailman3'))
         self.m3 = Mailman3Client(
-            'http://{0}:{1}/3.1'.format(conf['host'], conf['port']),
+            'http://{0}:{1}/3.3'.format(conf['host'], conf['port']),
             conf['user'], conf['pwd']
         )
         try:
@@ -225,7 +225,7 @@ class M3Sync(object):
                 list_name, self.sync['default_list_domain']))
             try:
                 mlist = domain.create_list(list_name)
-		mlist.preferred_language = preferred_language
+		mlist.preferred_language = self.sync['preferred_language]
                 self.set_settings(mlist)
             except HTTPError as e:
                 print(e)

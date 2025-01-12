@@ -165,6 +165,8 @@ class M3Sync(object):
         mlist.settings['advertised'] = False
         mlist.settings['subscription_policy'] = "confirm_then_moderate"
         mlist.settings['archive_policy'] = "never"
+        if os.environ.get('DEBUG_DEVELOP'):
+            pdb.set_trace()
         mlist.settings['preferred_language'] = self.sync['preferred_language']
 
         mlist.settings.save()
@@ -246,7 +248,7 @@ class M3Sync(object):
                 self.set_settings(mlist)
             except HTTPError as e:
                 print(e)
-                self.logger.warn(
+                self.logger.warning(
                     "List with name {0} already exists".format(list_name))
                 mlist = self.get_list_byname(domain, list_name)
                 if mlist == None:
@@ -281,7 +283,7 @@ class M3Sync(object):
                         "Add moderator {0} to list {1}".format(moderator, mlist_name))
                     mlist.add_moderator(moderator)
                 except HTTPError:
-                    self.logger.warn(
+                    self.logger.warning(
                         "moderator {0} already exist in {1}".format(moderator, mlist_name))
                 try:
                     self.logger.info("Add moderator {0} subscriber to list {1}".format(
@@ -299,7 +301,7 @@ class M3Sync(object):
                         "Add owner {0} to list {1}".format(owner, mlist_name))
                     mlist.add_owner(owner)
                 except HTTPError:
-                    self.logger.warn(
+                    self.logger.warning(
                         "owner {0} already exist in {1}".format(moderator, mlist_name))
 
         # MAILMAN -> LDAP, check for diff then remove when it not exist

@@ -60,9 +60,9 @@ class M3Sync(object):
         Initialize ldap connection
         """
         conf = dict(self.config.items('ldap'))
-	for k in conf:
-		if 'os.environ.get' in conf[k]:
-			conf[k]=eval(conf[k])
+        for k in conf:
+            if 'os.environ.get' in conf[k]:
+                conf[k]=eval(conf[k])
         self.ldap = Connection(
             Server(conf['host'], get_info=ALL),
             conf['bind_dn'], conf['bind_pwd'], auto_bind=True

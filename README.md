@@ -65,11 +65,12 @@ If you are enabling script log file and run script scheduled (using crontab) the
 
 ## Using the Script
 
-directly:
-```sh
-./m3_sync.py configfilename
+
 ```
-dockerized: see docker-compose.yml
+docker compose run --rm mm3_sync python m3_sync.py /etc/mm3sync.ini
+```
+
+before first start
 ```
 sudo touch /data/freie-dorfschule/mm3sync/log/mailman3_ldapsync.log && sudo chown -R 1000:1000 /data/freie-dorfschule/mm3sync/log/mailman3_ldapsync.log
 ```

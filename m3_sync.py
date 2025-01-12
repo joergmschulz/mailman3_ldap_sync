@@ -165,10 +165,7 @@ class M3Sync(object):
         mlist.settings['advertised'] = False
         mlist.settings['subscription_policy'] = "confirm_then_moderate"
         mlist.settings['archive_policy'] = "never"
-        if os.environ.get('DEBUG_DEVELOP'):
-            pdb.set_trace()
         mlist.settings['preferred_language'] = self.sync['preferred_language']
-
         mlist.settings.save()
      
     def main(self):
@@ -182,9 +179,7 @@ class M3Sync(object):
             self.sync['group_filter'],
             attributes=ret_attr
         )
-        if os.environ.get('DEBUG_DEVELOP'):
-            pdb.set_trace()
-
+        
         # regex was taken from http://emailregex.com/
         email_re = re.compile(
             r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
@@ -201,6 +196,8 @@ class M3Sync(object):
             for attr in self.__attrs:
                 for dn in getattr(group, self.sync['{0}_attr'.format(attr)]):
                     # if it's not email form then search by it's DN. this is used if quering group member agains AD
+                    if os.environ.get('DEBUG_DEVELOP_LDAP'):
+                        pdb.set_trace()
                     email = None
                     if email_re.search(dn):
                         email = dn

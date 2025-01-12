@@ -70,6 +70,9 @@ directly:
 ./m3_sync.py configfilename
 ```
 dockerized: see docker-compose.yml
+```
+sudo touch /data/freie-dorfschule/mm3sync/log/mailman3_ldapsync.log && sudo chown -R 1000:1000 /data/freie-dorfschule/mm3sync/log/mailman3_ldapsync.log
+```
 ## Develop
 if you set DEBUG_DEVELOP=true, the pdb debugger is started.
 

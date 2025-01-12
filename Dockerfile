@@ -12,7 +12,8 @@ WORKDIR /usr/local/m3sync
 COPY ./requirements.txt .
 
 RUN pip install -r requirements.txt && rm requirements.txt && \
-   adduser -D mm3sync && \
-   touch /var/log/mailman3_ldapsync.log && chown -R mm3sync:mm3sync /var/log/mailman3_ldapsync.log
+   adduser -D mm3sync 
 COPY ./m3_sync.py .
+
 USER mm3sync
+

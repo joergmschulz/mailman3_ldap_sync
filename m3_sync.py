@@ -341,7 +341,7 @@ class M3Sync(object):
 
 if __name__ == "__main__":
     if os.environ.get('DEBUG_DEVELOP'):
-	pdb.set_trace()
+        pdb.set_trace()
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     options = sys.argv
     print "Sys Args: ", options[1]

@@ -29,8 +29,7 @@ class M3Sync(object):
     logger = logging.getLogger('Mailman3Sync')
 
     def __init__(self, config):
-        if os.environ.get('DEBUG_DEVELOP'):
-            pdb.set_trace()
+        
         self.sync = dict(config.items('sync'))
         # add environment variables (later we'll completely switch to env)
         for k in self.sync:
@@ -226,11 +225,15 @@ class M3Sync(object):
         # make sure default domain exist
         self.logger.info('Creating default list domain: {0}'.format(
             self.sync['default_list_domain']))
+        if os.environ.get('DEBUG_DEVELOP'):
+            pdb.set_trace()
         try:
             self.m3.create_domain(self.sync['default_list_domain'])
         except HTTPError:
-            self.logger.warn('domain {0} already exist'.format(
+            self.logger.warning('domain {0} already exist'.format(
                 self.sync['default_list_domain']))
+        if os.environ.get('DEBUG_DEVELOP'):
+            pdb.set_trace()
 
         domain = self.m3.get_domain(self.sync['default_list_domain'])
 

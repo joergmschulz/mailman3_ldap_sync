@@ -21,7 +21,7 @@ except ImportError:
     # for python 3
     from configparser import ConfigParser
 
-if os.environ.get('DEBUG_DEVELOP'):
+if os.environ.get('DEBUG_DEVELOP') == 'true':
 	import pdb
 class M3Sync(object):
 
@@ -77,8 +77,7 @@ class M3Sync(object):
         for k in conf:
             if 'os.environ.get' in conf[k]:
                 conf[k]=eval(conf[k])
-        if os.environ.get('DEBUG_DEVELOP'):
-            pdb.set_trace()
+        
         self.m3 = Mailman3Client(
             'http://{0}:{1}/{2}'.format(conf['host'], conf['port'], conf['mm3api_version']),
             conf['user'], conf['pwd']
@@ -329,6 +328,8 @@ class M3Sync(object):
                     self.logger.info("Unsubscribe {0} from list {1}".format(
                         member.email, list_name))
                     member.unsubscribe()
+            if os.environ.get('DEBUG_DEVELOP') == true:
+                pdb.set_trace()
 
             for moderator in mlist.moderators:
                 if moderator not in ldap_data[list_name]['moderator']:

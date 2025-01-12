@@ -10,5 +10,6 @@ RUN apk update \
 RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 COPY ./requirements.txt .
+COPY ./m3_sync.py .
 RUN pip install -r requirements.txt
 

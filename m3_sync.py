@@ -33,8 +33,8 @@ class M3Sync(object):
         self.sync = dict(config.items('sync'))
     # add environment variables (later we'll completely switch to env)
     for k in sync:
-		if 'os.environ.get' in sync[k]:
-			sync[k]=eval(sync[k])
+        if 'os.environ.get' in sync[k]:
+            sync[k]=eval(sync[k])
         self.config = config
 
         self.init_logger()
@@ -74,9 +74,9 @@ class M3Sync(object):
         """
         # set conf api
         conf = dict(self.config.items('mailman3'))
-	for k in conf:
-		if 'os.environ.get' in conf[k]:
-			conf[k]=eval(conf[k])
+        for k in conf:
+            if 'os.environ.get' in conf[k]:
+                conf[k]=eval(conf[k])
         self.m3 = Mailman3Client(
             'http://{0}:{1}/3.3'.format(conf['host'], conf['port']),
             conf['user'], conf['pwd']
@@ -163,6 +163,8 @@ class M3Sync(object):
         mlist.settings['advertised'] = False
         mlist.settings['subscription_policy'] = "confirm_then_moderate"
         mlist.settings['archive_policy'] = "never"
+        mlist.settings['preferred_language'] = self.sync['preferred_language']
+
         mlist.settings.save()
      
     def main(self):
@@ -236,7 +238,6 @@ class M3Sync(object):
                 list_name, self.sync['default_list_domain']))
             try:
                 mlist = domain.create_list(list_name)
-		mlist.preferred_language = self.sync['preferred_language]
                 self.set_settings(mlist)
             except HTTPError as e:
                 print(e)

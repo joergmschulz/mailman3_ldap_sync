@@ -192,8 +192,7 @@ class M3Sync(object):
             ldap_data[self.get_list(list_name)] = dict(
                 zip(self.__attrs, [[] for x in range(len(self.__attrs))])
             )
-            if os.environ.get('DEBUG_DEVELOP'):
-                        pdb.set_trace()
+
 
             for attr in self.__attrs:
                 for dn in getattr(group, self.sync['{0}_attr'.format(attr)]):
@@ -271,7 +270,7 @@ class M3Sync(object):
                     mlist.subscribe(subscriber, pre_verified=True,
                                     pre_confirmed=True, pre_approved=True)
                 except HTTPError:
-                    self.logger.warn("subscriber {0} already exist in {1}".format(
+                    self.logger.warning("subscriber {0} already exist in {1}".format(
                         subscriber, mlist_name))
 
             # moderator
@@ -289,7 +288,7 @@ class M3Sync(object):
                     mlist.subscribe(moderator, pre_verified=True,
                                     pre_confirmed=True, pre_approved=True)
                 except HTTPError:
-                    self.logger.warn("moderator {0} already exist in {1}".format(
+                    self.logger.warning("moderator {0} already exist in {1}".format(
                         moderator, mlist_name))
 
             # owner
@@ -301,6 +300,8 @@ class M3Sync(object):
                 except HTTPError:
                     self.logger.warning(
                         "owner {0} already exist in {1}".format(moderator, mlist_name))
+            mlist.settings.save()
+
 
         # MAILMAN -> LDAP, check for diff then remove when it not exist
         # comparing member, if doesn't exist in ldap data then delete them
@@ -340,6 +341,8 @@ class M3Sync(object):
                     self.logger.info(
                         "Removing owner {0} from list {1}".format(owner, list_name))
                     mlist.remove_owner(owner)
+            mlist.settings.save()
+
 
         self.exec_hooks(ldap_data)
 

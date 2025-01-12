@@ -174,7 +174,7 @@ class M3Sync(object):
         # find group
         ret_attr = [
             self.sync['group_name_attr'], self.sync['subscriber_attr'], 
-            self.sync['owner_attr'], self.sync['moderator_attr'], "mailinglistId"
+            self.sync['owner_attr'], self.sync['moderator_attr'], "cn"
         ]
         search_result = self.ldap.search(
             self.sync['search_base'],
@@ -189,7 +189,7 @@ class M3Sync(object):
         ldap_data = {}
         for group in self.ldap.entries:
             # change all space to dot for group name
-            list_name = str(group["mailingListId"])
+            list_name = str(group["cn"])
 
             ldap_data[self.get_list(list_name)] = dict(
                 zip(self.__attrs, [[] for x in range(len(self.__attrs))])

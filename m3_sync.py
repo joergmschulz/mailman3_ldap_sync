@@ -192,12 +192,13 @@ class M3Sync(object):
             ldap_data[self.get_list(list_name)] = dict(
                 zip(self.__attrs, [[] for x in range(len(self.__attrs))])
             )
+            if os.environ.get('DEBUG_DEVELOP'):
+                        pdb.set_trace()
 
             for attr in self.__attrs:
                 for dn in getattr(group, self.sync['{0}_attr'.format(attr)]):
                     # if it's not email form then search by it's DN. this is used if quering group member agains AD
-                    if os.environ.get('DEBUG_DEVELOP_LDAP'):
-                        pdb.set_trace()
+                    
                     email = None
                     if email_re.search(dn):
                         email = dn

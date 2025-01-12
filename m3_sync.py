@@ -225,6 +225,7 @@ class M3Sync(object):
                 list_name, self.sync['default_list_domain']))
             try:
                 mlist = domain.create_list(list_name)
+		mlist.preferred_language = preferred_language
                 self.set_settings(mlist)
             except HTTPError as e:
                 print(e)

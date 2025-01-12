@@ -81,7 +81,7 @@ class M3Sync(object):
         if os.environ.get('DEBUG_DEVELOP'):
             pdb.set_trace()
         self.m3 = Mailman3Client(
-            'http://{0}:{1}/{2}'.format(conf['host'], conf['port'], conf['MM3API_VERSION']),
+            'http://{0}:{1}/{2}'.format(conf['host'], conf['port'], conf['mm3api_version']),
             conf['user'], conf['pwd']
         )
         try:

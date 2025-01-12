@@ -65,7 +65,9 @@ If you are enabling script log file and run script scheduled (using crontab) the
 
 ## Using the Script
 
-Run like a boss
+directly:
 ```sh
-./m3_sync.py
+./m3_sync.py configfilename
 ```
+dockerized: see docker-compose.yml
+

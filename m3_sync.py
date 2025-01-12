@@ -180,6 +180,8 @@ class M3Sync(object):
             self.sync['group_filter'],
             attributes=ret_attr
         )
+        if os.environ.get('DEBUG_DEVELOP'):
+            pdb.set_trace()
 
         # regex was taken from http://emailregex.com/
         email_re = re.compile(
@@ -225,15 +227,12 @@ class M3Sync(object):
         # make sure default domain exist
         self.logger.info('Creating default list domain: {0}'.format(
             self.sync['default_list_domain']))
-        if os.environ.get('DEBUG_DEVELOP'):
-            pdb.set_trace()
         try:
             self.m3.create_domain(self.sync['default_list_domain'])
         except HTTPError:
             self.logger.warning('domain {0} already exist'.format(
                 self.sync['default_list_domain']))
-        if os.environ.get('DEBUG_DEVELOP'):
-            pdb.set_trace()
+        
 
         domain = self.m3.get_domain(self.sync['default_list_domain'])
 

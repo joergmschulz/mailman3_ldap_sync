@@ -342,7 +342,7 @@ class M3Sync(object):
                     mlist.remove_moderator(moderator)
 
             for owner in mlist.owners:
-                if owner not in ldap_data[list_name]['owner']:
+                if owner.address.email not in ldap_data[list_name]['owner']:
                     self.logger.info(
                         "Removing owner {0} from list {1}".format(owner, list_name))
                     mlist.remove_owner(owner)

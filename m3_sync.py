@@ -30,6 +30,10 @@ class M3Sync(object):
     def __init__(self, config):
 
         self.sync = dict(config.items('sync'))
+	# add environment variables (later we'll completely switch to env)
+	for k in sync:
+...        if 'os.environ.get' in sync[k]:
+...           sync[k]=eval(sync[k])
         self.config = config
 
         self.init_logger()

@@ -336,7 +336,7 @@ class M3Sync(object):
             for moderator in mlist.moderators:
                 if os.environ.get('DEBUG_DEVELOP') == 'true':
                     pdb.set_trace()
-                if moderator not in ldap_data[list_name]['moderator']:
+                if moderator.address.email not in ldap_data[list_name]['moderator']:
                     self.logger.info(
                         "Removing moderator {0} from list {1}".format(moderator, list_name))
                     mlist.remove_moderator(moderator)

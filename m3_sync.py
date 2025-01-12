@@ -328,7 +328,7 @@ class M3Sync(object):
                     self.logger.info("Unsubscribe {0} from list {1}".format(
                         member.email, list_name))
                     member.unsubscribe()
-            if os.environ.get('DEBUG_DEVELOP') == true:
+            if os.environ.get('DEBUG_DEVELOP') == 'true':
                 pdb.set_trace()
 
             for moderator in mlist.moderators:

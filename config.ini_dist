@@ -41,7 +41,7 @@ exclude_list_re =
 list_prefix =
 ; accept_nonmembers
 ; accept_nonmembers = ^.*@google.com$
-
+preferred_language = 'de'
 ; hooks is some python code that will be executed after sync process are done, all hooks must be put in hooks folder
 ; script will run method main in hook file, see the example 
 [hooks]

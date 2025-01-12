@@ -7,8 +7,8 @@ RUN apk update \
     postgresql-dev \
     libpq
 
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir /usr/local/m3sync
+WORKDIR /usr/local/m3sync
 COPY ./requirements.txt .
 COPY ./m3_sync.py .
 RUN pip install -r requirements.txt

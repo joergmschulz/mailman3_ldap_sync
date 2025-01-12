@@ -70,4 +70,6 @@ directly:
 ./m3_sync.py configfilename
 ```
 dockerized: see docker-compose.yml
+## Develop
+if you set DEBUG_DEVELOP=true, the pdb debugger is started.
 

@@ -59,6 +59,9 @@ class M3Sync(object):
         Initialize ldap connection
         """
         conf = dict(self.config.items('ldap'))
+	for k in conf:
+...        if 'os.environ.get' in conf[k]:
+...           conf[k]=eval(conf[k])
         self.ldap = Connection(
             Server(conf['host'], get_info=ALL),
             conf['bind_dn'], conf['bind_pwd'], auto_bind=True
@@ -70,6 +73,9 @@ class M3Sync(object):
         """
         # set conf api
         conf = dict(self.config.items('mailman3'))
+	for k in conf:
+...        if 'os.environ.get' in conf[k]:
+...           conf[k]=eval(conf[k])
         self.m3 = Mailman3Client(
             'http://{0}:{1}/3.3'.format(conf['host'], conf['port']),
             conf['user'], conf['pwd']

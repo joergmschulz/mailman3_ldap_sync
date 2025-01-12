@@ -345,7 +345,7 @@ if __name__ == "__main__":
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     options = sys.argv
     # MAIN_CONF = os.path.join(BASE_DIR, 'config.ini')
-    MAIN_CONF = options[1]
+    MAIN_CONF = options[2]
     if not os.path.isfile(MAIN_CONF):
         logExit("main configuration not found")
 

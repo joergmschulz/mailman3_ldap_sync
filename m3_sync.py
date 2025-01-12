@@ -344,7 +344,6 @@ if __name__ == "__main__":
         pdb.set_trace()
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     options = sys.argv
-    print "Sys Args: ", options[1]
     # MAIN_CONF = os.path.join(BASE_DIR, 'config.ini')
     MAIN_CONF = options[1]
     if not os.path.isfile(MAIN_CONF):

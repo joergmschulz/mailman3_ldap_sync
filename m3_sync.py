@@ -307,9 +307,13 @@ class M3Sync(object):
         for mlist in domain.lists:
             list_name = mlist.list_name
             # delete the rest of list if doesn't exist in ldap
+            if os.environ.get('DEBUG_DEVELOP') == 'true':
+                pdb.set_trace()
+
             if list_name not in ldap_data.keys():
 
                 if self.sync['delete_rest_list'] == 'true':
+
 
                     # some are excluded using regex pattern
                     if self.sync['exclude_list_re'] and re.search(r'{0}'.format(self.sync['exclude_list_re']), mlist.list_name):
@@ -328,9 +332,7 @@ class M3Sync(object):
                     self.logger.info("Unsubscribe {0} from list {1}".format(
                         member.email, list_name))
                     member.unsubscribe()
-            if os.environ.get('DEBUG_DEVELOP') == 'true':
-                pdb.set_trace()
-
+            
             for moderator in mlist.moderators:
                 if moderator not in ldap_data[list_name]['moderator']:
                     self.logger.info(

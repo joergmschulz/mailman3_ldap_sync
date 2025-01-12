@@ -13,3 +13,5 @@ COPY ./requirements.txt .
 COPY ./m3_sync.py .
 RUN pip install -r requirements.txt
 
+adduser -D mm3sync
+USER mm3sync

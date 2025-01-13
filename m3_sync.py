@@ -261,7 +261,7 @@ class M3Sync(object):
             if os.environ.get('DEBUG_DEVELOP') == 'true':
                     pdb.set_trace()
             # add description
-            mlist.settings['description'] = datas['description'] if description in datas else ''
+            mlist.settings['description'] = datas['description'] if 'description' in datas else ''
 		
             mlist.settings.save()
 

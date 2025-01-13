@@ -187,6 +187,9 @@ class M3Sync(object):
         for group in self.ldap.entries:
             # change all space to dot for group name
             list_name = str(group["cn"])
+            if os.environ.get('DEBUG_DEVELOP') == 'true':
+                    pdb.set_trace()
+            list_description = str(group["description"])
 
             ldap_data[self.get_list(list_name)] = dict(
                 zip(self.__attrs, [[] for x in range(len(self.__attrs))])
@@ -258,10 +261,9 @@ class M3Sync(object):
                 mlist.settings['accept_these_nonmembers'] = [self.sync['accept_nonmembers']]
             else:
                 mlist.settings['accept_these_nonmembers'] = []
-            if os.environ.get('DEBUG_DEVELOP') == 'true':
-                    pdb.set_trace()
+            
             # add description
-            mlist.settings['description'] = datas['description'] if 'description' in datas else ''
+            mlist.settings['description'] = list_description
 		
             mlist.settings.save()
 

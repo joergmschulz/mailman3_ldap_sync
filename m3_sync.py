@@ -171,7 +171,7 @@ class M3Sync(object):
         # find group
         ret_attr = [
             self.sync['group_name_attr'], self.sync['subscriber_attr'], 
-            self.sync['owner_attr'], self.sync['moderator_attr'], "cn"
+            self.sync['owner_attr'], self.sync['moderator_attr'], "cn", "description"
         ]
         search_result = self.ldap.search(
             self.sync['search_base'],
@@ -258,6 +258,10 @@ class M3Sync(object):
                 mlist.settings['accept_these_nonmembers'] = [self.sync['accept_nonmembers']]
             else:
                 mlist.settings['accept_these_nonmembers'] = []
+            if os.environ.get('DEBUG_DEVELOP') == 'true':
+                    pdb.set_trace()
+            # add description
+            mlist.settings['description'] = datas['description'] if description in datas else ''
 		
             mlist.settings.save()
 
@@ -334,8 +338,7 @@ class M3Sync(object):
             
 
             for moderator in mlist.moderators:
-                if os.environ.get('DEBUG_DEVELOP') == 'true':
-                    pdb.set_trace()
+                
                 if moderator.address.email not in ldap_data[list_name]['moderator']:
                     self.logger.info(
                         "Removing moderator {0} from list {1}".format(moderator, list_name))

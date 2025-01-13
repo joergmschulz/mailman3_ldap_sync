@@ -194,6 +194,8 @@ class M3Sync(object):
             ldap_data[self.get_list(list_name)] = dict(
                 zip(self.__attrs, [[] for x in range(len(self.__attrs))])
             )
+            if os.environ.get('DEBUG_DEVELOP') == 'true':
+                    pdb.set_trace()
 
 
             for attr in self.__attrs:

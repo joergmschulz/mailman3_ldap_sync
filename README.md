@@ -3,7 +3,7 @@
 Synchronizing mailman3 list against ldap with ease. has been tested for OpenLDAP and Active Directory.
 
 Features:
-- Supporting Python 2.7 above (including 3.X)
+- dockerized version
 - Search through DN if group member is a DN record (Active Directory)
 - Adding some prefix in list name
 - Hooks, module that will be executed in the end of script

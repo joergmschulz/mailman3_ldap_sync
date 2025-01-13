@@ -25,7 +25,7 @@ if os.environ.get('DEBUG_DEVELOP') == 'true':
 	import pdb
 class M3Sync(object):
 
-    __attrs = ['subscriber', 'owner', 'moderator']
+    __attrs = ['subscriber', 'owner', 'moderator', 'description']
     logger = logging.getLogger('Mailman3Sync')
 
     def __init__(self, config):

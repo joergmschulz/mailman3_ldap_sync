@@ -25,7 +25,7 @@ if os.environ.get('DEBUG_DEVELOP') == 'true':
 	import pdb
 class M3Sync(object):
 
-    __attrs = ['subscriber', 'owner', 'moderator', 'description']
+    __attrs = ['subscriber', 'owner', 'moderator']
     logger = logging.getLogger('Mailman3Sync')
 
     def __init__(self, config):
@@ -187,16 +187,12 @@ class M3Sync(object):
         for group in self.ldap.entries:
             # change all space to dot for group name
             list_name = str(group["cn"])
-            if os.environ.get('DEBUG_DEVELOP') == 'true':
-                    pdb.set_trace()
-            list_description = str(group["description"])
-
             ldap_data[self.get_list(list_name)] = dict(
                 zip(self.__attrs, [[] for x in range(len(self.__attrs))])
             )
             if os.environ.get('DEBUG_DEVELOP') == 'true':
                     pdb.set_trace()
-
+            ldap_data[self.get_list(list_name)]['description'] =  str(group["description"])
 
             for attr in self.__attrs:
                 for dn in getattr(group, self.sync['{0}_attr'.format(attr)]):
@@ -265,7 +261,7 @@ class M3Sync(object):
                 mlist.settings['accept_these_nonmembers'] = []
             
             # add description
-            mlist.settings['description'] = list_description
+            mlist.settings['description'] = datas['description']
 		
             mlist.settings.save()
 

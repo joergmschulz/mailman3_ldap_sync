@@ -171,7 +171,7 @@ class M3Sync(object):
         # find group
         ret_attr = [
             self.sync['group_name_attr'], self.sync['subscriber_attr'], 
-            self.sync['owner_attr'], self.sync['moderator_attr'], "cn", "description", self.sync['mail_attr']
+            self.sync['owner_attr'], self.sync['moderator_attr'], "cn", "description", self.sync['listmail_attr']
         ]
         search_result = self.ldap.search(
             self.sync['search_base'],
@@ -242,7 +242,7 @@ class M3Sync(object):
                 list_name, self.sync['default_list_domain']))
             try:
                 # create list by listname or by email address
-                mlist = domain.create_list( datas['mail'] if len(str(datas['mail']))>0 else list_name)
+                mlist = domain.create_list( datas['mail'] if 'mail' in datas and len(str(datas['mail']))>0 else list_name)
                 self.set_settings(mlist)
             except HTTPError as e:
                 print(e)

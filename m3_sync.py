@@ -193,7 +193,7 @@ class M3Sync(object):
             if os.environ.get('DEBUG_DEVELOP') == 'true':
                     pdb.set_trace()
             ldap_data[self.get_list(list_name)]['description'] =  str(group["description"])
-            ldap_data[self.get_list(list_name)]['mail'] =  str(group["mail"])
+            ldap_data[self.get_list(list_name)]['mail'] =  str(group["mail"][0])
 
             for attr in self.__attrs:
                 for dn in getattr(group, self.sync['{0}_attr'.format(attr)]):

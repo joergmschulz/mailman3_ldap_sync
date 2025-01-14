@@ -309,14 +309,11 @@ class M3Sync(object):
         # MAILMAN -> LDAP, check for diff then remove when it not exist
         # comparing member, if doesn't exist in ldap data then delete them
         for mlist in domain.lists:
-            list_name = mlist.list_name
+            list_name = mlist.display_name # not list_name
             # delete the rest of list if doesn't exist in ldap
 
 
             if list_name not in ldap_data.keys():
-                if os.environ.get('DEBUG_DEVELOP') == 'true':
-                        pdb.set_trace()
-
                 if self.sync['delete_rest_list'] == 'true':
                     if os.environ.get('DEBUG_DEVELOP') == 'true':
                         pdb.set_trace()

@@ -190,8 +190,6 @@ class M3Sync(object):
             ldap_data[self.get_list(list_name)] = dict(
                 zip(self.__attrs, [[] for x in range(len(self.__attrs))])
             )
-            if os.environ.get('DEBUG_DEVELOP') == 'true':
-                    pdb.set_trace()
             ldap_data[self.get_list(list_name)]['description'] =  str(group["description"])
             ldap_data[self.get_list(list_name)]['mail'] =  group["mail"][0] if len(group["mail"])>0 else ''
 
@@ -245,7 +243,7 @@ class M3Sync(object):
                 # create list by listname or by email address
                 if os.environ.get('DEBUG_DEVELOP') == 'true':
                         pdb.set_trace()
-                mlist = domain.create_list( datas['mail'] if 'mail' in datas and len(str(datas['mail']))>0 else list_name)
+                mlist = domain.create_list( datas['mail'].replace( '@'+str(domain), '') if 'mail' in datas and len(str(datas['mail']))>0 else list_name)
                 self.set_settings(mlist)
             except HTTPError as e:
                 print(e)

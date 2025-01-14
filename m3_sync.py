@@ -171,7 +171,7 @@ class M3Sync(object):
         # find group
         ret_attr = [
             self.sync['group_name_attr'], self.sync['subscriber_attr'], 
-            self.sync['owner_attr'], self.sync['moderator_attr'], "cn", "description"
+            self.sync['owner_attr'], self.sync['moderator_attr'], "cn", "description", self.sync['mail_attr']
         ]
         search_result = self.ldap.search(
             self.sync['search_base'],
@@ -241,7 +241,8 @@ class M3Sync(object):
             self.logger.info("Create list {0} in domain {1}".format(
                 list_name, self.sync['default_list_domain']))
             try:
-                mlist = domain.create_list(list_name)
+                # create list by listname or by email address
+                mlist = domain.create_list(len(str(datas['mail']))>0 ?  datas['mail'] : list_name)
                 self.set_settings(mlist)
             except HTTPError as e:
                 print(e)
@@ -252,7 +253,7 @@ class M3Sync(object):
                     self.logger.warn("Failed to add list {0}".format(list_name))
                     continue
 
-            mlist_name = mlist.fqdn_listname
+            mlist_name = mlist.fqdn_listname # important to use this and not the list name
 
             # add domain as accepted non-member
             if '@' in self.sync['accept_nonmembers'] :
@@ -316,8 +317,8 @@ class M3Sync(object):
             if list_name not in ldap_data.keys():
 
                 if self.sync['delete_rest_list'] == 'true':
-
-
+                    if os.environ.get('DEBUG_DEVELOP') == 'true':
+                    pdb.set_trace()
                     # some are excluded using regex pattern
                     if self.sync['exclude_list_re'] and re.search(r'{0}'.format(self.sync['exclude_list_re']), mlist.list_name):
                         continue

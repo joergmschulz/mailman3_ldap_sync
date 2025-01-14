@@ -266,9 +266,7 @@ class M3Sync(object):
             
             # add description
             mlist.settings['description'] = datas['description']
-            mlist.settings['display_name'] = datas['cn']
-            
-		
+            mlist.settings['display_name'] = list_name
             mlist.settings.save()
 
             # subscriber

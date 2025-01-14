@@ -318,7 +318,7 @@ class M3Sync(object):
 
                 if self.sync['delete_rest_list'] == 'true':
                     if os.environ.get('DEBUG_DEVELOP') == 'true':
-                    pdb.set_trace()
+                        pdb.set_trace()
                     # some are excluded using regex pattern
                     if self.sync['exclude_list_re'] and re.search(r'{0}'.format(self.sync['exclude_list_re']), mlist.list_name):
                         continue

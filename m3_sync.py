@@ -241,8 +241,6 @@ class M3Sync(object):
                 list_name, self.sync['default_list_domain']))
             try:
                 # create list by listname or by email address
-                if os.environ.get('DEBUG_DEVELOP') == 'true':
-                        pdb.set_trace()
                 mlist = domain.create_list( datas['mail'].replace( '@'+str(domain), '') if 'mail' in datas and len(str(datas['mail']))>0 else list_name)
                 self.set_settings(mlist)
             except HTTPError as e:
@@ -316,6 +314,8 @@ class M3Sync(object):
 
 
             if list_name not in ldap_data.keys():
+                if os.environ.get('DEBUG_DEVELOP') == 'true':
+                        pdb.set_trace()
 
                 if self.sync['delete_rest_list'] == 'true':
                     if os.environ.get('DEBUG_DEVELOP') == 'true':

@@ -259,7 +259,10 @@ class M3Sync(object):
                 mlist.settings['accept_these_nonmembers'] = [self.sync['accept_nonmembers']]
             else:
                 mlist.settings['accept_these_nonmembers'] = []
-            mlist.settings['dmarc_addresses'] = eval(os.environ.get('MM3_DMARC_ADDRESSES') ) if os.environ.get('MM3_DMARC_ADDRESSES') else ''
+            if os.environ.get('DEBUG_DEVELOP') == 'true':
+                        pdb.set_trace()
+                    
+            mlist.settings['dmarc_addresses'] = eval(os.environ.get('MM3_DMARC_ADDRESSES')) if os.environ.get('MM3_DMARC_ADDRESSES') else ''
             mlist.settings['dmarc_mitigate_action'] = eval(os.environ.get('MM3_DMARC_ACTION') ) if os.environ.get('MM3_DMARC_ACTION') else DMARCMitigateAction.no_mitigation
             # add description
             mlist.settings['description'] = datas['description']
@@ -316,8 +319,6 @@ class M3Sync(object):
 
             if list_name not in ldap_data.keys():
                 if self.sync['delete_rest_list'] == 'true':
-                    if os.environ.get('DEBUG_DEVELOP') == 'true':
-                        pdb.set_trace()
                     # some are excluded using regex pattern
                     if self.sync['exclude_list_re'] and re.search(r'{0}'.format(self.sync['exclude_list_re']), mlist.list_name):
                         continue

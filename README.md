@@ -1,12 +1,15 @@
 # Mailman3 LDAP Sync
 
-Synchronizing mailman3 list against ldap with ease. has been tested for OpenLDAP and Active Directory.
+Synchronizing mailman3 list against ldap with ease. has been tested for OpenLDAP .
 
 Features:
 - dockerized version
 - Search through DN if group member is a DN record (Active Directory)
 - Adding some prefix in list name
 - Hooks, module that will be executed in the end of script
+- add lists and members from LDAP
+- use attribute 'mail' for list address and CN for list name if 'mail' is set, else use list name + default domain name
+- delete lists that don't exist in LDAP
 - Excluding list for being deleted by regex pattern
 
 
@@ -44,7 +47,8 @@ before first start
 ```
 sudo touch /data/freie-dorfschule/mm3sync/log/mailman3_ldapsync.log && sudo chown -R 1000:1000 /data/freie-dorfschule/mm3sync/log/mailman3_ldapsync.log
 ```
-
+# settings
+The additional settings listed below will only be applied or overwritten on list creation.
 ## DMARC
 To send mails to certain providers, you need to munge/masquerade for certain domains. See docker-compose.yml and https://docs.mailman3.org/projects/mailman/en/latest/src/mailman/handlers/docs/dmarc-mitigations.html
 

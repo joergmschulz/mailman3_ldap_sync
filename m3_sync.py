@@ -259,7 +259,8 @@ class M3Sync(object):
                 mlist.settings['accept_these_nonmembers'] = [self.sync['accept_nonmembers']]
             else:
                 mlist.settings['accept_these_nonmembers'] = []
-            
+            mlist.settings['dmarc_addresses'] = eval(os.environ.get('MM3_DMARC_ADDRESSES') ) if os.environ.get('MM3_DMARC_ADDRESSES') else ''
+            mlist.settings['dmarc_mitigate_action']  eval(os.environ.get('MM3_DMARC_ACTION') ) if os.environ.get('MM3_DMARC_ACTION') else DMARCMitigateAction.no_mitigation
             # add description
             mlist.settings['description'] = datas['description']
             mlist.settings['display_name'] = list_name

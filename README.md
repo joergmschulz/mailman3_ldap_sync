@@ -44,6 +44,10 @@ before first start
 ```
 sudo touch /data/freie-dorfschule/mm3sync/log/mailman3_ldapsync.log && sudo chown -R 1000:1000 /data/freie-dorfschule/mm3sync/log/mailman3_ldapsync.log
 ```
+
+## DMARC
+To send mails to certain providers, you need to munge/masquerade for certain domains. See docker-compose.yml and https://docs.mailman3.org/projects/mailman/en/latest/src/mailman/handlers/docs/dmarc-mitigations.html
+
 ## Develop
 if you set DEBUG_DEVELOP=true, the pdb debugger is started.
 

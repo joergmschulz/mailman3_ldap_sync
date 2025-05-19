@@ -249,7 +249,7 @@ class M3Sync(object):
                     "List with name {0} already exists".format(list_name))
                 mlist = self.get_list_byname(domain, list_name)
                 if mlist == None:
-                    self.logger.warn("Failed to add list {0}".format(list_name))
+                    self.logger.warning("Failed to add list {0}".format(list_name))
                     continue
 
             mlist_name = mlist.fqdn_listname # important to use this and not the list name

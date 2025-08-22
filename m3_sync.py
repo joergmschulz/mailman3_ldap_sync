@@ -350,7 +350,7 @@ class M3Sync(object):
                 if owner.address.email not in ldap_data[list_name]['owner']:
                     self.logger.info(
                         "Removing owner {0} from list {1}".format(owner, list_name))
-                    mlist.remove_owner(owner)
+                    mlist.remove_owner(owner.address.email)
             mlist.settings.save()
 
 

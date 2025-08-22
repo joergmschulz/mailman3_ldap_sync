@@ -249,6 +249,8 @@ class M3Sync(object):
                     "List with name {0} already exists".format(list_name))
                 mlist = self.get_list_byname(domain, list_name)
                 if mlist == None:
+                    if os.environ.get('DEBUG_DEVELOP') == 'true':
+                        pdb.set_trace()
                     self.logger.warning("Failed to add list {0}".format(list_name))
                     continue
 
@@ -342,8 +344,7 @@ class M3Sync(object):
                 if moderator.address.email not in ldap_data[list_name]['moderator']:
                     self.logger.info(
                         "Removing moderator {0} from list {1}".format(moderator, list_name))
-                    if os.environ.get('DEBUG_DEVELOP') == 'true':
-                        pdb.set_trace()
+                    
                     mlist.remove_moderator(moderator.address.email)
             if self.sync['delete_owners']== 'true':
               for owner in mlist.owners:

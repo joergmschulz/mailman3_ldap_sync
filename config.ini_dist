@@ -51,3 +51,7 @@ preferred_language = os.environ.get('MM3SYNC_PREFERRED_LANGUAGE')
 ; hook configuration that will be injected to hook main function as argument
 ;[example_hook]
 ;postmap_path = /usr/sbin/postmap
+
+; whether do delete owners, moderators 
+delete_owners = false
+delete_moderators = false

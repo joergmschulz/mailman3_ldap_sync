@@ -276,7 +276,7 @@ class M3Sync(object):
                         pdb.set_trace()
                 try:
                     mlist.get_member(subscriber)
-                except HTTPError:
+                except ValueError:
                     self.logger.info("Add subscriber {0} to list {1}".format(
                         subscriber, mlist_name))
                     mlist.subscribe(subscriber, pre_verified=True,

@@ -272,6 +272,16 @@ class M3Sync(object):
 
             # subscriber
             for subscriber in datas['subscriber']:
+                if os.environ.get('DEBUG_DEVELOP') == 'true':
+                        pdb.set_trace()
+                try:
+                    mlist.get_member(subscriber)
+                except HTTPError:
+                    self.logger.info("Add subscriber {0} to list {1}".format(
+                        subscriber, mlist_name))
+                    mlist.subscribe(subscriber, pre_verified=True,
+                                    pre_confirmed=True, pre_approved=True)
+                """        
                 try:
                     self.logger.info("Add subscriber {0} to list {1}".format(
                         subscriber, mlist_name))
@@ -280,6 +290,7 @@ class M3Sync(object):
                 except HTTPError:
                     self.logger.warning("subscriber {0} already exist in {1}".format(
                         subscriber, mlist_name))
+                """
 
             # moderator
             for moderator in datas['moderator']:

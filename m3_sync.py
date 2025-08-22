@@ -126,7 +126,7 @@ class M3Sync(object):
         a wrapper for get list by name
         """
         for mlist in domain.lists:
-            if mlist.list_name != list_name:
+            if (mlist.list_name != list_name ) and (mlist.display_name != list_name):
                 continue
             return mlist
         return None

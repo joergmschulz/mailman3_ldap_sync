@@ -11,6 +11,7 @@ Features:
 - use attribute 'mail' for list address and CN for list name if 'mail' is set, else use list name + default domain name
 - delete lists that don't exist in LDAP
 - Excluding list for being deleted by regex pattern
+- do not delete owners, moderators if set to false in config.ini
 
 
 ## Installing

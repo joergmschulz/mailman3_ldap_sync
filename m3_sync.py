@@ -336,7 +336,7 @@ class M3Sync(object):
                         member.email, list_name))
                     member.unsubscribe()
             
-            if self.delete_moderators:
+            if self.sync['delete_moderators']:
               for moderator in mlist.moderators:
                 
                 if moderator.address.email not in ldap_data[list_name]['moderator']:
@@ -345,7 +345,7 @@ class M3Sync(object):
                     if os.environ.get('DEBUG_DEVELOP') == 'true':
                         pdb.set_trace()
                     mlist.remove_moderator(moderator.address.email)
-            if self.delete_owners:
+            if self.sync['delete_owners]:
               for owner in mlist.owners:
                 if owner.address.email not in ldap_data[list_name]['owner']:
                     self.logger.info(

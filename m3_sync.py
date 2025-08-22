@@ -259,8 +259,7 @@ class M3Sync(object):
                 mlist.settings['accept_these_nonmembers'] = [self.sync['accept_nonmembers']]
             else:
                 mlist.settings['accept_these_nonmembers'] = []
-            if os.environ.get('DEBUG_DEVELOP') == 'true':
-                        pdb.set_trace()
+            
                     
             mlist.settings['dmarc_addresses'] = eval(os.environ.get('MM3_DMARC_ADDRESSES')) if os.environ.get('MM3_DMARC_ADDRESSES') else []
             mlist.settings['dmarc_mitigate_action'] = os.environ.get('MM3_DMARC_ACTION' ) if os.environ.get('MM3_DMARC_ACTION') else no_mitigation
@@ -343,6 +342,8 @@ class M3Sync(object):
                 if moderator.address.email not in ldap_data[list_name]['moderator']:
                     self.logger.info(
                         "Removing moderator {0} from list {1}".format(moderator, list_name))
+                    if os.environ.get('DEBUG_DEVELOP') == 'true':
+                        pdb.set_trace()
                     mlist.remove_moderator(moderator)
 
             for owner in mlist.owners:
